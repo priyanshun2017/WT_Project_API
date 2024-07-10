@@ -1,0 +1,29 @@
+The function escapeHtml prevents XSS (Cross-Site Scripting) attacks by converting special characters in a string to their 
+corresponding HTML entities. This ensures that any potentially malicious code embedded within the string is not executed by the browser,
+but instead displayed as plain text.
+
+Here’s a breakdown of how it works:
+
+& (Ampersand): & is replaced with &amp;.
+Reason: The ampersand is used to denote the beginning of an HTML entity. Converting it prevents the browser from interpreting any 
+following characters as an entity.
+
+< (Less than): < is replaced with &lt;.
+Reason: The less than symbol is used to open HTML tags. Escaping it prevents the browser from interpreting the text as the beginning
+of an HTML tag.
+
+> (Greater than): > is replaced with &gt;.
+Reason: The greater than symbol is used to close HTML tags. Escaping it prevents the browser from interpreting the text as the end 
+of an HTML tag.
+
+" (Double quote): " is replaced with &quot;.
+Reason: Double quotes are used to delimit attribute values in HTML tags. Escaping them prevents breaking out of attribute contexts.
+
+' (Single quote): ' is replaced with &#039;.
+Reason: Single quotes are also used to delimit attribute values. Escaping them prevents breaking out of attribute contexts, 
+especially in cases where single quotes are used instead of double quotes.
+
+By replacing these characters with their HTML entity equivalents, the function ensures that any potentially harmful scripts 
+included in the input string are rendered harmless. For instance, an attacker might try to inject a script like
+<script>alert('XSS')</script>. After escaping, it becomes &lt;script&gt;alert(&#039;XSS&#039;)&lt;/script&gt;, 
+which the browser will render as plain text rather than executing the script.
